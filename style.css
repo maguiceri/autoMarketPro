@@ -6,7 +6,7 @@
   --sky: #cfe2fa;
   --paper: #f3f6fb;
   --card: #ffffff;
-  --muted: #33456a;
+  --muted: #1c2d4f;
   --line: rgba(0, 25, 61, 0.1);
 
   --display: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -54,6 +54,7 @@ body {
   color: var(--navy);
   font-family: var(--display);
   font-size: 1.0625rem;
+  font-weight: 500;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -108,7 +109,7 @@ svg use {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.28;
+  opacity: 0.14;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 .1 0 0 0 0 .24 0 0 0 1.7 -.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -193,9 +194,9 @@ svg use {
   gap: 14px;
   color: var(--azure);
   font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -210,7 +211,7 @@ svg use {
 h1,
 h2 {
   font-weight: 800;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
   text-wrap: balance;
 }
 
@@ -276,7 +277,7 @@ h1 {
   flex-wrap: wrap;
   gap: 10px 22px;
   list-style: none;
-  font-size: 0.92rem;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 1.3;
 }
@@ -364,7 +365,7 @@ h1 {
   margin-top: 14px;
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: calc(1 - var(--out) * 3);
@@ -478,7 +479,7 @@ h2 {
   grid-column: 1 / -1;
   align-self: start;
   color: var(--muted);
-  font-size: 0.96rem;
+  font-size: 1rem;
   line-height: 1.5;
 }
 
@@ -536,7 +537,7 @@ h2 {
 .feat p {
   margin-top: 6px;
   color: var(--muted);
-  font-size: 0.96rem;
+  font-size: 1rem;
   line-height: 1.5;
 }
 
@@ -607,7 +608,7 @@ h2 {
   border-radius: 18px;
   background: #fff;
   box-shadow: 0 18px 40px rgba(0, 25, 61, 0.14);
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   line-height: 1.2;
   opacity: var(--badge);
   transform: translateY(calc((1 - var(--badge)) * 16px)) scale(calc(0.9 + var(--badge) * 0.1));
@@ -696,7 +697,7 @@ h2 {
   display: grid;
   gap: 2px;
   margin-top: 16px;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .who::before {
@@ -844,7 +845,7 @@ h2 {
 .stat p {
   margin-top: 8px;
   color: var(--muted);
-  font-size: 0.96rem;
+  font-size: 1rem;
   line-height: 1.5;
 }
 
@@ -884,7 +885,7 @@ h2 {
   }
 
   .hero-sub {
-    font-size: 1.06rem;
+    font-size: 1.15rem;
   }
 
   .trust {
@@ -1413,7 +1414,7 @@ h2 {
     max-width: 18ch;
     font-size: clamp(1.9rem, min(3.4vw, 6vh), 3.2rem);
     font-weight: 800;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.025em;
     line-height: 1.04;
   }
 
@@ -1434,7 +1435,7 @@ h2 {
 
   [data-mode="story"] .incl-intro {
     justify-self: end;
-    font-size: clamp(0.92rem, 2.1vh, 1.04rem);
+    font-size: clamp(0.98rem, 2.3vh, 1.12rem);
   }
 
   [data-mode="story"] h2 {
@@ -1444,7 +1445,7 @@ h2 {
 
   [data-mode="story"] .incl-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr) minmax(0, 1fr);
-    grid-template-rows: repeat(3, minmax(0, auto));
+    grid-template-rows: repeat(3, auto);
     grid-template-areas:
       "km   car estr"
       "mec  car scan"
@@ -1485,7 +1486,7 @@ h2 {
   }
 
   [data-mode="story"] .card p {
-    font-size: clamp(0.84rem, 1.9vh, 0.94rem);
+    font-size: clamp(0.9rem, 2.05vh, 1rem);
     line-height: 1.45;
   }
 }
@@ -1507,7 +1508,7 @@ h2 {
 
   [data-mode="story"] .cov-intro {
     margin-top: 10px;
-    font-size: 0.96rem;
+    font-size: 1rem;
     line-height: 1.5;
   }
 
@@ -1552,7 +1553,7 @@ h2 {
 
   [data-mode="story"] .ana-text {
     margin-top: 12px;
-    font-size: 0.96rem;
+    font-size: 1rem;
     line-height: 1.5;
   }
 
@@ -1572,7 +1573,7 @@ h2 {
 
   [data-mode="story"] .stat-unit {
     margin-top: 8px;
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   [data-mode="story"] .stat-unit::before {
@@ -1581,7 +1582,7 @@ h2 {
 
   [data-mode="story"] .stat p {
     margin-top: 6px;
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     line-height: 1.4;
   }
 
@@ -1608,7 +1609,7 @@ h2 {
 
   [data-mode="story"] .trust {
     gap: 8px 18px;
-    font-size: 0.86rem;
+    font-size: 0.92rem;
   }
 
   [data-mode="story"] .rev {
@@ -1629,7 +1630,7 @@ h2 {
   }
 
   [data-mode="story"] .incl-intro {
-    font-size: 0.96rem;
+    font-size: 1rem;
     line-height: 1.5;
   }
 
@@ -1739,7 +1740,7 @@ h2 {
   [data-mode="story"] .rev-intro,
   [data-mode="story"] .cov-intro,
   [data-mode="story"] .ana-text {
-    font-size: 0.86rem;
+    font-size: 0.9rem;
     line-height: 1.4;
   }
 
