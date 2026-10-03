@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AutoMarketPro — Escaneo y diagnóstico vehicular en todo Argentina</title>
+  <meta name="description" content="Inspecciones vehiculares en todo el país con mecánicos calificados y herramientas con licencias oficiales. Informe completo en PDF con fotografías.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="silueta.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <svg class="sprite" aria-hidden="true">
+    <symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></symbol>
+    <symbol id="i-engine" viewBox="0 0 24 24"><path d="M6 10h9l3 3h3v5h-3l-2 2H9l-3-3H4v-5h2z"/><path d="M8 10V7h5v3"/><path d="M7 7h7"/><path d="M2 12v5"/></symbol>
+    <symbol id="i-scan" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M6 11h3l1.5-3 3 6 1.5-3h3"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></symbol>
+    <symbol id="i-pdf" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6M9 15l3 3 3-3"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <filter id="goo" x="-20%" y="-60%" width="600%" height="220%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0"/>
+      <feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"/>
+    </filter>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+  </svg>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="nav-logo" href="#inicio" aria-label="AutoMarketPro, inicio">
+      <img src="logo.png" alt="AutoMarketPro" width="2137" height="736">
+    </a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#incluye">¿Qué incluye?</a>
+    </nav>
+    <a class="btn btn-sm" href="#solicitar">Solicitar revisión</a>
+  </header>
+
+  <main id="inicio">
+    <div class="story">
+      <div class="scene">
+
+        <div class="hero-track">
+          <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-blob" aria-hidden="true"></div>
+
+            <div class="hero-copy">
+              <p class="eyebrow">Inspección vehicular</p>
+              <h1 id="hero-title">Escaneo y diagnóstico vehicular en <em>todo Argentina</em></h1>
+              <p class="hero-sub">Realizamos inspecciones vehiculares en todo el país, con mecánicos calificados. Utilizamos herramientas con licencias oficiales de las marcas comercializadas en MERCOSUR.</p>
+              <a class="btn" href="#solicitar">Solicitar revisión <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              <ul class="trust">
+                <li><svg aria-hidden="true"><use href="#i-shield"/></svg>Compra más segura</li>
+                <li><svg aria-hidden="true"><use href="#i-car"/></svg>Información real y detallada</li>
+                <li><svg aria-hidden="true"><use href="#i-doc"/></svg>Informe en PDF con fotografías</li>
+              </ul>
+            </div>
+
+            <div class="hero-car">
+              <div class="car-home">
+                <div class="car" aria-hidden="true">
+                  <img class="car-silueta" src="silueta.png" alt="" width="2137" height="736">
+                  <img class="car-auto" src="auto.png" alt="" width="2138" height="736">
+                  <img class="car-capot" src="autoCapot.png" alt="" width="2138" height="736">
+                  <span class="beam"></span>
+                </div>
+              </div>
+              <p class="readout" aria-hidden="true">
+                <span class="readout-label">Deslizá para iniciar el escaneo</span>
+                <span class="readout-bar"><i></i></span>
+                <span class="readout-pct">0 %</span>
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <section class="incl" id="incluye" aria-labelledby="incl-title">
+          <header class="incl-head">
+            <div>
+              <p class="eyebrow">Nuestro servicio</p>
+              <h2 id="incl-title">Todo lo que incluye <em>tu verificación</em></h2>
+            </div>
+            <p class="incl-intro">Realizamos una inspección completa del vehículo, analizando su estado mecánico, electrónico, estructural y documental. Te entregamos toda la información en un informe detallado para que puedas tomar una decisión segura.</p>
+          </header>
+
+          <div class="incl-grid">
+            <div class="car-dock" aria-hidden="true">
+              <img class="dock-img" src="autoCapot.png" alt="" width="2138" height="736" loading="lazy">
+            </div>
+            <p class="count" aria-hidden="true"><b>01</b> / 07</p>
+
+            <article class="card card-km" data-anchor="0.425,0.39">
+              <div class="card-in">
+                <span class="chip"><svg aria-hidden="true"><use href="#i-gauge"/></svg></span>
+                <h3>Verificación de kilometraje real</h3>
+                <p>Analizamos que el desgaste del vehículo coincida con el kilometraje indicado y escaneamos los módulos para verificar la distancia registrada.</p>
+              </div>
+            </article>
+
+            <article class="card card-estr" data-anchor="0.78,0.29">
+              <div class="card-in">
+                <span class="chip"><svg aria-hidden="true"><use href="#i-car"/></svg></span>
+                <h3>Revisión estructural</h3>
+                <p>Evaluamos el estado de la carrocería, detectamos piezas reparadas o repintadas y analizamos su historial visual mediante medición de espesor de pintura.</p>
+              </div>
+            </article>
+
+            <article class="card card-mec" data-anchor="0.25,0.43">
+              <div class="card-in">
+                <span class="chip"><svg aria-hidden="true"><use href="#i-engine"/></svg></span>
+                <h3>Revisión mecánica</h3>
+                <p>Inspección visual del estado del motor, verificamos que no tenga pérdidas ni filtraciones y realizamos una revisión electrónica analizando datos en tiempo real y que no presente códigos de fallos.</p>
+              </div>
+            </article>
+
+            <article class="card card-scan" data-anchor="0.6,0.5">
+              <div class="card-in">
+                <span class="chip"><svg aria-hidden="true"><use href="#i-scan"/></svg></span>
+                <h3>Escaneo electrónico</h3>
+                <p>Realizamos un informe de salud del vehículo, escaneando todos los módulos electrónicos para ver su funcionamiento interno y detectar fallas que no están a la vista.</p>
+              </div>
+            </article>
+
+            <article class="card card-desg" data-anchor="0.185,0.79">
+              <div class="card-in">
+                <span class="chip"><svg aria-hidden="true"><use href="#i-wrench"/></svg></span>
+                <h3>Desgastes o mantenimiento</h3>
+                <p>Revisamos si hay alguna pieza desgastada para ser reemplazada o si corresponde realizar algún mantenimiento por kilometraje.</p>
+              </div>
+            </article>
+
+            <article class="card card-mult" data-anchor="0.97,0.64">
+              <div class="card-in">
+                <span class="chip"><svg aria-hidden="true"><use href="#i-doc"/></svg></span>
+                <h3>Informe de multas o patentes</h3>
+                <p>Verificamos que no tenga deudas vigentes en la provincia de Buenos Aires.</p>
+              </div>
+            </article>
+
+            <article class="card card-pdf" data-anchor="0.5,0.95" data-side="top">
+              <div class="card-in">
+                <span class="chip"><svg aria-hidden="true"><use href="#i-pdf"/></svg></span>
+                <h3>Informe completo en PDF</h3>
+                <p>Te entregamos toda la información en un archivo PDF, con fotografías, diagnóstico electrónico, observaciones y conclusión general, para que puedas almacenarlo y consultarlo cuando lo necesites.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="ana" id="analisis" aria-labelledby="ana-title">
+          <div class="ana-top">
+            <p class="eyebrow">Análisis</p>
+            <h2 class="ana-title" id="ana-title">
+              <span class="ana-num"><span class="six"><img class="six-sil" src="silueta.png" alt="" width="2137" height="736" aria-hidden="true"><span class="six-glyph">6</span></span><span class="ten">/10</span></span>
+              <span class="ana-claim">autos usados tienen algún dato oculto al comprador.</span>
+            </h2>
+            <p class="ana-text">En nuestras inspecciones detectamos con frecuencia fallas, reparaciones no informadas, kilometrajes inconsistentes y problemas electrónicos que no están a la vista.</p>
+          </div>
+
+          <ul class="stats">
+            <li class="stat">
+              <strong>40</strong>
+              <span class="stat-unit">minutos</span>
+              <p>En realizar toda la verificación y darle el estado del vehículo.</p>
+            </li>
+            <li class="stat">
+              <strong>24</strong>
+              <span class="stat-unit">horas</span>
+              <p>Tiempo promedio hasta recibir el informe completo.</p>
+            </li>
+            <li class="stat">
+              <strong>240+</strong>
+              <span class="stat-unit">puntos de revisión</span>
+              <p>Mecánica, estructural, electrónica y documental.</p>
+            </li>
+            <li class="stat">
+              <strong>1000+</strong>
+              <span class="stat-unit">clientes</span>
+              <p>Que nos contrataron para revisar su vehículo.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="rev" id="resenas" aria-labelledby="rev-title">
+          <header class="rev-head">
+            <p class="eyebrow">Reseñas</p>
+            <h2 id="rev-title">La confianza de <em>nuestros clientes</em></h2>
+            <p class="rev-intro">Más de 1.000 personas ya confiaron en nosotros para revisar su vehículo y tomar una decisión segura.</p>
+          </header>
+
+          <div class="rev-stage">
+            <p class="rev-count" aria-hidden="true"><b>01</b> / 06</p>
+            <ul class="quotes">
+              <li class="quote">
+                <span class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</span>
+                <blockquote>“Excelente servicio. Me dieron toda la información del auto, detectaron cosas que yo no había visto y me ayudaron a decidir. Totalmente recomendable.”</blockquote>
+                <p class="who"><b>Martín G.</b><span>Volkswagen Golf</span></p>
+              </li>
+              <li class="quote">
+                <span class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</span>
+                <blockquote>“Muy profesionales y detallistas. El informe es completo y fácil de entender. Me dio mucha tranquilidad hacer la compra con toda la información.”</blockquote>
+                <p class="who"><b>Carla R.</b><span>Toyota Corolla</span></p>
+              </li>
+              <li class="quote">
+                <span class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</span>
+                <blockquote>“Detectaron fallas que el vendedor no me había informado. Me ahorré un gran problema. La atención fue excelente y el informe muy completo.”</blockquote>
+                <p class="who"><b>Federico L.</b><span>Ford Ranger</span></p>
+              </li>
+              <li class="quote">
+                <span class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</span>
+                <blockquote>“Súper recomendable. Revisaron todo el auto, me mostraron cada detalle y me entregaron el informe en el tiempo que me habían indicado.”</blockquote>
+                <p class="who"><b>Julieta M.</b><span>Peugeot 208</span></p>
+              </li>
+              <li class="quote">
+                <span class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</span>
+                <blockquote>“Servicio serio y profesional. Me dieron una visión real del estado del vehículo y pude negociar mejor la compra.”</blockquote>
+                <p class="who"><b>Nicolás T.</b><span>Chevrolet Cruze</span></p>
+              </li>
+              <li class="quote">
+                <span class="stars" role="img" aria-label="5 de 5 estrellas">★★★★★</span>
+                <blockquote>“La verdad superó mis expectativas. El informe es muy completo, con fotos y explicación clara. Da mucha confianza.”</blockquote>
+                <p class="who"><b>Sofía L.</b><span>Renault Sandero</span></p>
+              </li>
+            </ul>
+          </div>
+
+          <div class="rev-cta">
+            <div>
+              <p class="eyebrow">Más de 1.000 clientes</p>
+              <p class="rev-cta-title">Tu tranquilidad también es nuestra prioridad.</p>
+            </div>
+            <a class="btn" href="#resenas">Ver más reseñas <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </section>
+
+        <section class="cov" id="cobertura" aria-labelledby="cov-title">
+          <div class="cov-copy">
+            <header class="cov-head">
+              <p class="eyebrow">Zona de cobertura</p>
+              <h2 id="cov-title">Llegamos a <em>todo el país</em></h2>
+              <p class="cov-intro">Realizamos inspecciones en todas las provincias de Argentina, mediante nuestro equipo propio y una red de inspectores especializados.</p>
+            </header>
+
+            <ul class="feats">
+              <li class="feat">
+                <span class="chip"><svg aria-hidden="true"><use href="#i-pin"/></svg></span>
+                <div>
+                  <h3>En todo el país</h3>
+                  <p>Coordinamos inspecciones en tu ciudad o en la zona donde se encuentre el vehículo.</p>
+                </div>
+              </li>
+              <li class="feat">
+                <span class="chip"><svg aria-hidden="true"><use href="#i-users"/></svg></span>
+                <div>
+                  <h3>Red de inspectores</h3>
+                  <p>Contamos con un equipo de profesionales en distintas regiones del país.</p>
+                </div>
+              </li>
+              <li class="feat">
+                <span class="chip"><svg aria-hidden="true"><use href="#i-car"/></svg></span>
+                <div>
+                  <h3>Misma calidad de servicio</h3>
+                  <p>Sin importar la ubicación, el proceso, los estándares y el informe son los mismos en todo el país.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="cov-map">
+            <div class="map" aria-hidden="true">
+              <img src="mapa.png" alt="" width="1024" height="1536" loading="lazy">
+              <span class="map-beam"></span>
+              <span class="pin" style="--x:0.47;--y:0.1"></span>
+              <span class="pin" style="--x:0.66;--y:0.15"></span>
+              <span class="pin" style="--x:0.88;--y:0.19"></span>
+              <span class="pin" style="--x:0.36;--y:0.21"></span>
+              <span class="pin" style="--x:0.56;--y:0.23"></span>
+              <span class="pin" style="--x:0.74;--y:0.28"></span>
+              <span class="pin" style="--x:0.31;--y:0.31"></span>
+              <span class="pin" style="--x:0.51;--y:0.36"></span>
+              <span class="pin" style="--x:0.7;--y:0.39"></span>
+              <span class="pin" style="--x:0.29;--y:0.45"></span>
+              <span class="pin" style="--x:0.43;--y:0.53"></span>
+              <span class="pin" style="--x:0.64;--y:0.53"></span>
+              <span class="pin" style="--x:0.26;--y:0.6"></span>
+              <span class="pin" style="--x:0.38;--y:0.63"></span>
+              <span class="pin" style="--x:0.3;--y:0.73"></span>
+              <span class="pin" style="--x:0.27;--y:0.85"></span>
+              <span class="pin" style="--x:0.35;--y:0.975"></span>
+            </div>
+            <p class="cov-badge"><svg aria-hidden="true"><use href="#i-pin"/></svg>Cobertura en <strong>todo el país</strong></p>
+          </div>
+        </section>
+
+        <svg class="leads" aria-hidden="true"></svg>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
