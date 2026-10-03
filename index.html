@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="silueta.png">
+  <link rel="preload" as="image" href="silueta.webp" type="image/webp" fetchpriority="high">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -34,7 +34,7 @@
 
   <header class="nav">
     <a class="nav-logo" href="#inicio" aria-label="AutoMarketPro, inicio">
-      <img src="logo.png" alt="AutoMarketPro" width="2137" height="736">
+      <img src="logo.webp" alt="AutoMarketPro" width="2137" height="736">
     </a>
     <nav class="nav-links" id="menu" aria-label="Principal">
       <a href="#inicio">Inicio</a>
@@ -70,9 +70,9 @@
             <div class="hero-car">
               <div class="car-home">
                 <div class="car" aria-hidden="true">
-                  <img class="car-silueta" src="silueta.png" alt="" width="2137" height="736">
-                  <img class="car-auto" src="auto.png" alt="" width="2138" height="736">
-                  <img class="car-capot" src="autoCapot.png" alt="" width="2138" height="736">
+                  <img class="car-silueta" src="silueta.webp" alt="" width="2137" height="736">
+                  <img class="car-auto" decoding="async" src="auto.webp" alt="" width="2138" height="736">
+                  <img class="car-capot" decoding="async" src="autoCapot.webp" alt="" width="2138" height="736">
                   <span class="beam"></span>
                 </div>
               </div>
@@ -96,7 +96,7 @@
 
           <div class="incl-grid">
             <div class="car-dock" aria-hidden="true">
-              <img class="dock-img" src="autoCapot.png" alt="" width="2138" height="736" loading="lazy">
+              <img class="dock-img" src="autoCapot.webp" alt="" width="2138" height="736" loading="lazy">
             </div>
             <p class="count" aria-hidden="true"><b>01</b> / 07</p>
 
@@ -162,7 +162,7 @@
           <div class="ana-top">
             <p class="eyebrow">Análisis</p>
             <h2 class="ana-title" id="ana-title">
-              <span class="ana-num"><span class="six"><img class="six-sil" src="silueta.png" alt="" width="2137" height="736" aria-hidden="true"><span class="six-glyph">6</span></span><span class="ten">/10</span></span>
+              <span class="ana-num"><span class="six"><img class="six-sil" src="silueta.webp" alt="" width="2137" height="736" aria-hidden="true"><span class="six-glyph">6</span></span><span class="ten">/10</span></span>
               <span class="ana-claim">autos usados tienen algún dato oculto al comprador.</span>
             </h2>
             <p class="ana-text">En nuestras inspecciones detectamos con frecuencia fallas, reparaciones no informadas, kilometrajes inconsistentes y problemas electrónicos que no están a la vista.</p>
@@ -279,7 +279,7 @@
 
           <div class="cov-map">
             <div class="map" aria-hidden="true">
-              <img src="mapa.png" alt="" width="1024" height="1536" loading="lazy">
+              <img src="mapa.webp" alt="" width="1024" height="1536" loading="lazy">
               <span class="map-beam"></span>
               <span class="pin" style="--x:0.47;--y:0.1"></span>
               <span class="pin" style="--x:0.66;--y:0.15"></span>
@@ -308,6 +308,6 @@
     </div>
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>

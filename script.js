@@ -351,7 +351,18 @@
   }
 
   addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', setMode);
+  // En el celular la barra del navegador dispara "resize" al scrollear: sólo se vuelve
+  // a medir si de verdad cambió el ancho o el alto de la escena
+  let lastW = 0;
+  let lastH = 0;
+  addEventListener('resize', () => {
+    const w = innerWidth;
+    const h = scene.offsetHeight;
+    if (w === lastW && h === lastH) return;
+    lastW = w;
+    lastH = h;
+    setMode();
+  });
   addEventListener('load', measure);
   reduce.addEventListener('change', setMode);
   if (document.fonts) document.fonts.ready.then(measure);
