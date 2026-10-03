@@ -67,6 +67,13 @@
 
   root.classList.add('js');
 
+  // Al recargar, la página siempre vuelve al inicio (el navegador no restaura el scroll)
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  scrollTo({ top: 0, behavior: 'instant' });
+  addEventListener('pageshow', (e) => {
+    if (e.persisted) scrollTo({ top: 0, behavior: 'instant' });
+  });
+
   // Cada tarjeta tiene su línea guía y su punto de anclaje sobre el auto
   const links = cards.map((card) => {
     const path = document.createElementNS(SVG, 'path');
