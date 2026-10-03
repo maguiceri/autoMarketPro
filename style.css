@@ -303,7 +303,7 @@ h1 {
   border-radius: 58% 42% 38% 62% / 52% 44% 56% 48%;
   background: radial-gradient(closest-side, #a9cdf8, rgba(207, 226, 250, 0.6) 62%, transparent);
   filter: blur(26px);
-  opacity: calc(1 - var(--out));
+  opacity: calc(1 - var(--out) * 1.6);
   pointer-events: none;
 }
 
@@ -900,17 +900,111 @@ h2 {
 
 }
 
-@media (max-width: 640px) {
-  .nav-links {
-    display: none;
+.nav-links a[aria-current] {
+  color: var(--azure);
+}
+
+.nav-toggle {
+  display: none;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: none;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.nav-toggle span,
+.nav-toggle span::before,
+.nav-toggle span::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.nav-toggle span {
+  position: relative;
+}
+
+.nav-toggle span::before,
+.nav-toggle span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.nav-toggle span::before { top: -6px; }
+.nav-toggle span::after { top: 6px; }
+
+.nav-toggle[aria-expanded="true"] span {
+  background: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] span::before {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span::after {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* en pantallas angostas los links pasan a un panel desplegable bajo la barra */
+@media (max-width: 999.98px) {
+  .nav {
+    gap: 10px;
   }
 
   .nav .btn {
     margin-left: auto;
   }
 
+  .nav-toggle {
+    display: grid;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    left: 0;
+    display: none;
+    gap: 0;
+    margin: 0;
+    padding: 10px 22px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 18px 40px rgba(0, 25, 61, 0.14);
+    font-size: 1rem;
+  }
+
+  .nav-links.open {
+    display: grid;
+  }
+
+  .nav-links a {
+    padding: 13px 0;
+  }
+
+  .nav-links a + a {
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 640px) {
   .nav-logo img {
     height: 36px;
+  }
+
+  .nav .btn {
+    padding: 11px 14px;
   }
 }
 
@@ -951,8 +1045,13 @@ h2 {
 }
 
 [data-mode="story"] .hero-copy > * {
-  opacity: calc(1 - var(--out));
-  transform: translateY(calc(var(--out) * -55vh));
+  opacity: calc(1 - var(--out) * 1.6);
+  transform: translateY(calc(var(--out) * -26vh));
+}
+
+/* sin transición de transform: si no, el botón queda atrasado respecto del scroll y "salta" */
+[data-mode="story"] .hero-copy > .btn {
+  transition: background-color 0.18s;
 }
 
 [data-mode="story"] .is-incl .hero-copy {
@@ -1369,7 +1468,7 @@ h2 {
 /* Story en pantallas angostas: el auto queda arriba y las tarjetas salen de a una */
 @media (max-width: 999.98px) {
   [data-mode="story"] .cov {
-    padding-top: 88px;
+    padding-top: 112px;
   }
 
   [data-mode="story"] .cov-copy {
@@ -1415,7 +1514,7 @@ h2 {
   }
 
   [data-mode="story"] .ana {
-    padding-top: 88px;
+    padding-top: 112px;
   }
 
   [data-mode="story"] .ana-num {
@@ -1470,11 +1569,33 @@ h2 {
 
   [data-mode="story"] .hero {
     gap: 14px;
-    padding: 86px var(--gut) 20px;
+    padding: 112px var(--gut) 24px;
+  }
+
+  [data-mode="story"] h1 {
+    font-size: clamp(1.9rem, 8.2vw, 3.2rem);
+  }
+
+  [data-mode="story"] .hero-sub {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  [data-mode="story"] .trust {
+    gap: 8px 18px;
+    font-size: 0.86rem;
+  }
+
+  [data-mode="story"] .rev {
+    padding-top: 112px;
+  }
+
+  [data-mode="story"] .rev-stage {
+    padding-top: 14px;
   }
 
   [data-mode="story"] .incl {
-    padding-top: 88px;
+    padding-top: 112px;
   }
 
   [data-mode="story"] h2 {

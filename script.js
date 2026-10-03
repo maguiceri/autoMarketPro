@@ -43,7 +43,7 @@
   //  5) cobertura: las reseñas se van (leave4), el mapa se escanea de norte a sur (map)
   //     y las ubicaciones caen a medida que pasa la línea
   const WIDE = {
-    scan: [0.09, 2.2], out: [0.09, 0.97], move: [0.18, 1.5], head: [0.62, 1.32], hood: [2.2, 2.73],
+    scan: [0.09, 2.2], out: [0.05, 0.55], move: [0.18, 1.5], head: [0.62, 1.32], hood: [2.2, 2.73],
     cards: 1.32, slot: 0.374, dur: 0.53,
     leave: [4.5, 5], back: [4.5, 5], move2: [4.7, 5.3], morph: [5.3, 5.65], ana: [5.6, 6.2],
     stats: 6.2, sslot: 0.4, sdur: 0.5,
@@ -51,7 +51,7 @@
     leave4: [13, 13.5], cov: [13.2, 13.7], map: [13.6, 15.6], feats: 14.1, fslot: 0.5, fdur: 0.45, badge: [15.6, 16], end: 16.6,
   };
   const NARROW = {
-    scan: [0.2, 4], out: [0.2, 1.6], move: [0.3, 2.2], head: [1, 2.2], hood: [4, 4.8],
+    scan: [0.2, 4], out: [0.05, 0.6], move: [0.3, 1.8], head: [0.5, 1.5], hood: [4, 4.8],
     cards: 2.2, slot: 1.05, dur: 0.45,
     leave: [9.6, 10], back: [9.6, 10], move2: [9.8, 10.4], morph: [10.4, 10.75], ana: [10.7, 11.3],
     stats: 11.3, sslot: 0.45, sdur: 0.5,
@@ -174,6 +174,7 @@
     const leave = seg(v, ...T.leave);
     const morph = seg(v, ...T.morph);
 
+    markNav(v, T);
     scene.style.setProperty('--scan', scan.toFixed(4));
     scene.style.setProperty('--hood', hood.toFixed(4));
     // al volver, el auto se desvanece sobre la silueta completa (sin re-escanear)
@@ -274,15 +275,49 @@
     }
   }
 
-  // La sección vive dentro de la escena: el link del menú lleva al punto del recorrido donde aparece
+  // Las secciones viven dentro de la escena: cada link del menú lleva al punto del
+  // recorrido donde esa pantalla ya está completa
+  const stops = {
+    inicio: () => 0,
+    incluye: (T) => (wide.matches ? T.cards + (links.length - 1) * T.slot + T.dur : T.cards + T.dur),
+    analisis: (T) => T.stats + (stats.length - 1) * T.sslot + T.sdur,
+    resenas: (T) => T.revs + T.rdur,
+    cobertura: (T) => T.badge[1],
+  };
+  const menu = $('.nav-links');
+  const toggle = $('.nav-toggle');
+  const navLinks = [...menu.querySelectorAll('a')];
+
+  function closeMenu() {
+    menu.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', () => {
+    toggle.setAttribute('aria-expanded', String(menu.classList.toggle('open')));
+  });
+
   document.addEventListener('click', (e) => {
-    const a = e.target.closest('a[href="#incluye"]');
-    if (!a || mode !== 'story') return;
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) {
+      if (!e.target.closest('.nav')) closeMenu();
+      return;
+    }
+    closeMenu();
+    const stop = stops[a.hash.slice(1)];
+    if (!stop || mode !== 'story') return;
     e.preventDefault();
     const T = script();
-    const at = wide.matches ? T.cards + (links.length - 1) * T.slot + T.dur : T.cards + T.dur;
-    scrollTo({ top: story.offsetTop + (story.offsetHeight - scene.offsetHeight) * (at / T.end) });
+    scrollTo({ top: story.offsetTop + (story.offsetHeight - scene.offsetHeight) * (stop(T) / T.end) });
   });
+
+  // marca en el menú la pantalla que se está viendo
+  function markNav(v, T) {
+    const starts = [0, T.head[0], T.leave[0], T.leave3[0], T.leave4[0]];
+    let at = 0;
+    starts.forEach((s, i) => { if (v >= s) at = i; });
+    navLinks.forEach((a, i) => (i === at ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+  }
 
   // Entrada: primero aparece sola la silueta en el centro, después se corre
   // a su lugar y entra el resto de la primera pantalla
