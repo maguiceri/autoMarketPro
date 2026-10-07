@@ -1,5 +1,5 @@
 (() => {
-  const WHATSAPP = '5491158057874';
+  const WHATSAPP = '5491124620786';
 
   // Marcas y modelos por tipo de vehículo. Para agregar o quitar opciones, editar estas listas.
   const CATALOG = {
