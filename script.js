@@ -329,7 +329,10 @@
   // Entrada: primero aparece sola la silueta en el centro, después se corre
   // a su lugar y entra el resto de la primera pantalla
   function playIntro() {
-    if (mode !== 'story' || scrollY > 10 || location.hash) return;
+    if (mode !== 'story' || scrollY > 10 || !root.classList.contains('intro')) {
+      root.classList.remove('intro');
+      return;
+    }
     intro = true;
     const stage = $('.hero-car');
     const sr = scene.getBoundingClientRect();
@@ -338,23 +341,38 @@
     const dy = sr.top + sr.height / 2 - (h.top + h.height / 2);
     const k = Math.max(1, Math.min(1.3, (sr.width * 0.84) / h.width));
     stage.style.transform = `translate(${dx / geo.k}px, ${dy / geo.k}px) scale(${k})`;
-    root.classList.add('intro');
 
+    const finish = () => {
+      root.classList.remove('intro', 'intro-out', 'intro-draw');
+      stage.style.transform = '';
+      intro = false;
+      measure();
+    };
+
+    // Espera a que la silueta esté descargada y lista para dibujarse: la entrada nunca
+    // arranca con la imagen vacía. Si la imagen falla o tarda demasiado, se muestra todo.
     const img = $('.car-silueta');
-    const ready = img.decode ? img.decode().catch(() => {}) : Promise.resolve();
-    Promise.race([ready, new Promise((r) => setTimeout(r, 1500))]).then(() => {
+    const loaded = img.complete
+      ? Promise.resolve()
+      : new Promise((ok, fail) => {
+        img.addEventListener('load', ok, { once: true });
+        img.addEventListener('error', fail, { once: true });
+      });
+    const ready = loaded.then(() => {
+      if (!img.naturalWidth) throw new Error('silueta');
+      return img.decode ? img.decode().catch(() => {}) : null;
+    });
+    const timeout = new Promise((_, fail) => setTimeout(fail, 8000));
+
+    Promise.race([ready, timeout]).then(() => {
       requestAnimationFrame(() => root.classList.add('intro-draw'));
       setTimeout(() => {
         root.classList.add('intro-out');
         root.classList.remove('intro');
         stage.style.transform = '';
       }, 750);
-      setTimeout(() => {
-        root.classList.remove('intro-out', 'intro-draw');
-        intro = false;
-        measure();
-      }, 1900);
-    });
+      setTimeout(finish, 1900);
+    }, finish);
   }
 
   addEventListener('scroll', onScroll, { passive: true });

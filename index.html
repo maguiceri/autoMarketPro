@@ -10,6 +10,15 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="silueta.webp" type="image/webp" fetchpriority="high">
   <link rel="stylesheet" href="style.css">
+  <script>
+    // La entrada arranca oculta desde el primer pintado, para que lo primero que se vea
+    // sea siempre la silueta sola. Si el script principal no llega a correr, se muestra todo.
+    (function (r) {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || location.hash === '#sin-intro') return;
+      r.classList.add('js', 'intro');
+      setTimeout(function () { if (!r.dataset.mode) r.classList.remove('intro'); }, 4000);
+    })(document.documentElement);
+  </script>
 </head>
 <body>
   <svg class="sprite" aria-hidden="true">
