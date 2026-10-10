@@ -65,6 +65,12 @@
   let intro = false;
   let queued = false;
 
+  // Con mouse, la rueda mueve la página de a saltos: la historia sigue al scroll con un
+  // poco de inercia para que el movimiento sea continuo. En pantallas táctiles no hace falta.
+  const smooth = matchMedia('(hover: hover) and (pointer: fine)');
+  let drawn = -1;
+  let lastT = 0;
+
   root.classList.add('js');
 
   // Al recargar, la página siempre vuelve al inicio (el navegador no restaura el scroll)
@@ -164,13 +170,23 @@
     update();
   }
 
-  function update() {
+  function update(now) {
     queued = false;
     if (mode !== 'story') return;
 
     const T = script();
     const narrow = !wide.matches;
-    const v = clamp(-story.getBoundingClientRect().top / (story.offsetHeight - scene.offsetHeight)) * T.end;
+    const target = clamp(-story.getBoundingClientRect().top / (story.offsetHeight - scene.offsetHeight)) * T.end;
+    if (typeof now !== 'number' || drawn < 0 || !smooth.matches) {
+      drawn = target;
+    } else {
+      const dt = Math.min(50, now - lastT || 16);
+      drawn += (target - drawn) * (1 - Math.exp(-dt / 110));
+      if (Math.abs(target - drawn) < 0.002) drawn = target;
+    }
+    lastT = typeof now === 'number' ? now : 0;
+    const v = drawn;
+    if (drawn !== target) onScroll();
 
     const scan = ease(seg(v, ...T.scan));
     const hood = seg(v, ...T.hood);
@@ -319,10 +335,13 @@
   });
 
   // marca en el menú la pantalla que se está viendo
+  let navAt = -1;
   function markNav(v, T) {
     const starts = [0, T.head[0], T.leave[0], T.leave3[0], T.leave4[0]];
     let at = 0;
     starts.forEach((s, i) => { if (v >= s) at = i; });
+    if (at === navAt) return;
+    navAt = at;
     navLinks.forEach((a, i) => (i === at ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
   }
 
